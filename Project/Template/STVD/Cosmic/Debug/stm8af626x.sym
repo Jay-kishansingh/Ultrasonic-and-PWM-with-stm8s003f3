@@ -1,0 +1,15 @@
+000002;00001;
+'CONSTANTS' 
+
+'ram0' V
+
+'ram1' V
+
+'stack' V
+
+'eeprom' V
+
+'rom' C
+
+'vectit' S
+

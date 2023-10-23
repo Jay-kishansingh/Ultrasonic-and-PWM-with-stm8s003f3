@@ -1,0 +1,27 @@
+
+Segment List
+------------
+
+d:\fwlib_ver_e\stm8\stm8_stdperiph_lib\stm8s_stdperiph_lib_v2.0.0\project\template\stvd\cosmic\main.asm[1]    5-   51      8080 -     80A4                 'rom'  [text]
+d:\fwlib_ver_e\stm8\stm8_stdperiph_lib\stm8s_stdperiph_lib_v2.0.0\project\template\stvd\cosmic\main.asm[2]   52-   85      8000 -     807F                 'vectit'  [data]
+
+
+Class List
+----------
+
+0 '        ram0'   byte from        0 to FFFFFFFF (lim       FF) =  0% V
+0 '        ram1'   byte from      100 to       FF (lim      5FF) =  0% V
+0 '       stack'   byte from      600 to      5FF (lim      7FF) =  0% V
+0 '      eeprom'   byte from     4000 to     3FFF (lim     43FF) =  0% V
+0 '         rom'   byte from     8080 to     80A4 (lim     FFFF) =  0% C
+0 '      vectit'   byte from     8000 to     807F (lim     807F) =100% S
+
+
+
+External Label list
+-------------------
+
+Symbol Name                       Value     Scope  Def(line)
+
+
+0 labels
