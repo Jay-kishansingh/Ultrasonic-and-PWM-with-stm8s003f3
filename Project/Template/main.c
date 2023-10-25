@@ -69,7 +69,7 @@ uint16_t measure_distance(void) {
 
  
 void main(void) {
-		uint16_t distance;
+		uint16_t distance, distance_mm;
 		uint16_t duty_cycle = 1000;
 		
     CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1); // Set the clock frequency
@@ -78,11 +78,19 @@ void main(void) {
  
     while (1) {
         distance = measure_distance();
- 
+				//distance_mm = distance*10;
         // Adjust LED intensity based on the distance
         if (distance <= 1) {
             duty_cycle = 1000; // LED OFF
-        }
+				} else if(distance>2 && distance<12) {
+						duty_cycle = ((12 - distance) * 100); //Linear mapping to PWM
+						// Update PWM duty cycle for the LED
+						TIM1_SetCompare1(duty_cycle);
+				}
+				
+        
+        delay_us(1000000); // Add a delay for stability
+				/*
 				if (distance == 2) {
             duty_cycle = 910; // LED OFF
         }
@@ -116,7 +124,7 @@ void main(void) {
 				if (distance == 12) {
             duty_cycle = 0; // LED OFF
         }
-				
+				*/
 				
 				/*
 				else if (distance >= 1 && distance <= 2) {
@@ -157,15 +165,12 @@ void main(void) {
         }
 				*/
 				/*
-				//duty_cycle = 1000 - ((distance - 10) * 10); // Linear mapping to PWM duty cycle
+				
 				else {
             duty_cycle = 0; // Maximum intensity
         }
 				*/
-        // Update PWM duty cycle for the LED
-        TIM1_SetCompare1(duty_cycle);
- 
-        delay_us(6000000); // Add a delay for stability
+
     }
 }
 

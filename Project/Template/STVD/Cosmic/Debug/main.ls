@@ -150,155 +150,74 @@
  398                     ; 71 void main(void) {
  399                     	switch	.text
  400  00cf               _main:
- 402  00cf 5204          	subw	sp,#4
- 403       00000004      OFST:	set	4
+ 402  00cf 89            	pushw	x
+ 403       00000002      OFST:	set	2
  406                     ; 73 		uint16_t duty_cycle = 1000;
- 408  00d1 ae03e8        	ldw	x,#1000
- 409  00d4 1f03          	ldw	(OFST-1,sp),x
- 411                     ; 75     CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1); // Set the clock frequency
- 413  00d6 4f            	clr	a
- 414  00d7 cd0000        	call	_CLK_HSIPrescalerConfig
- 416                     ; 76     init_GPIO();
- 418  00da cd000b        	call	_init_GPIO
- 420                     ; 77     init_TIM1_PWM();
- 422  00dd cd002d        	call	_init_TIM1_PWM
- 424  00e0               L331:
- 425                     ; 80         distance = measure_distance();
- 427  00e0 cd0060        	call	_measure_distance
- 429  00e3 1f01          	ldw	(OFST-3,sp),x
- 431                     ; 83         if (distance <= 1) {
- 433  00e5 a30002        	cpw	x,#2
- 434  00e8 2407          	jruge	L731
- 435                     ; 84             duty_cycle = 1000; // LED OFF
- 437  00ea ae03e8        	ldw	x,#1000
- 438  00ed 1f03          	ldw	(OFST-1,sp),x
- 440  00ef 1e01          	ldw	x,(OFST-3,sp)
- 441  00f1               L731:
- 442                     ; 86 				if (distance == 2) {
- 444  00f1 a30002        	cpw	x,#2
- 445  00f4 2607          	jrne	L141
- 446                     ; 87             duty_cycle = 910; // LED OFF
- 448  00f6 ae038e        	ldw	x,#910
- 449  00f9 1f03          	ldw	(OFST-1,sp),x
- 451  00fb 1e01          	ldw	x,(OFST-3,sp)
- 452  00fd               L141:
- 453                     ; 89 				if (distance == 3) {
- 455  00fd a30003        	cpw	x,#3
- 456  0100 2607          	jrne	L341
- 457                     ; 90             duty_cycle = 820; // LED OFF
- 459  0102 ae0334        	ldw	x,#820
- 460  0105 1f03          	ldw	(OFST-1,sp),x
- 462  0107 1e01          	ldw	x,(OFST-3,sp)
- 463  0109               L341:
- 464                     ; 92 				if (distance == 4) {
- 466  0109 a30004        	cpw	x,#4
- 467  010c 2607          	jrne	L541
- 468                     ; 93             duty_cycle = 730; // LED OFF
- 470  010e ae02da        	ldw	x,#730
- 471  0111 1f03          	ldw	(OFST-1,sp),x
- 473  0113 1e01          	ldw	x,(OFST-3,sp)
- 474  0115               L541:
- 475                     ; 95 				if (distance == 5) {
- 477  0115 a30005        	cpw	x,#5
- 478  0118 2607          	jrne	L741
- 479                     ; 96             duty_cycle = 640; // LED OFF
- 481  011a ae0280        	ldw	x,#640
- 482  011d 1f03          	ldw	(OFST-1,sp),x
- 484  011f 1e01          	ldw	x,(OFST-3,sp)
- 485  0121               L741:
- 486                     ; 98 				if (distance == 6) {
- 488  0121 a30006        	cpw	x,#6
- 489  0124 2607          	jrne	L151
- 490                     ; 99             duty_cycle = 550; // LED OFF
- 492  0126 ae0226        	ldw	x,#550
- 493  0129 1f03          	ldw	(OFST-1,sp),x
- 495  012b 1e01          	ldw	x,(OFST-3,sp)
- 496  012d               L151:
- 497                     ; 101 				if (distance == 7) {
- 499  012d a30007        	cpw	x,#7
- 500  0130 2607          	jrne	L351
- 501                     ; 102             duty_cycle = 460; // LED OFF
- 503  0132 ae01cc        	ldw	x,#460
- 504  0135 1f03          	ldw	(OFST-1,sp),x
- 506  0137 1e01          	ldw	x,(OFST-3,sp)
- 507  0139               L351:
- 508                     ; 104 				if (distance == 8) {
- 510  0139 a30008        	cpw	x,#8
- 511  013c 2607          	jrne	L551
- 512                     ; 105             duty_cycle = 370; // LED OFF
- 514  013e ae0172        	ldw	x,#370
- 515  0141 1f03          	ldw	(OFST-1,sp),x
- 517  0143 1e01          	ldw	x,(OFST-3,sp)
- 518  0145               L551:
- 519                     ; 107 				if (distance == 9) {
- 521  0145 a30009        	cpw	x,#9
- 522  0148 2607          	jrne	L751
- 523                     ; 108             duty_cycle = 280; // LED OFF
- 525  014a ae0118        	ldw	x,#280
- 526  014d 1f03          	ldw	(OFST-1,sp),x
- 528  014f 1e01          	ldw	x,(OFST-3,sp)
- 529  0151               L751:
- 530                     ; 110 				if (distance == 10) {
- 532  0151 a3000a        	cpw	x,#10
- 533  0154 2607          	jrne	L161
- 534                     ; 111             duty_cycle = 190; // LED OFF
- 536  0156 ae00be        	ldw	x,#190
- 537  0159 1f03          	ldw	(OFST-1,sp),x
- 539  015b 1e01          	ldw	x,(OFST-3,sp)
- 540  015d               L161:
- 541                     ; 113 				if (distance == 11) {
- 543  015d a3000b        	cpw	x,#11
- 544  0160 2607          	jrne	L361
- 545                     ; 114             duty_cycle = 100; // LED OFF
- 547  0162 ae0064        	ldw	x,#100
- 548  0165 1f03          	ldw	(OFST-1,sp),x
- 550  0167 1e01          	ldw	x,(OFST-3,sp)
- 551  0169               L361:
- 552                     ; 116 				if (distance == 12) {
- 554  0169 a3000c        	cpw	x,#12
- 555  016c 2603          	jrne	L561
- 556                     ; 117             duty_cycle = 0; // LED OFF
- 558  016e 5f            	clrw	x
- 559  016f 1f03          	ldw	(OFST-1,sp),x
- 561  0171               L561:
- 562                     ; 166         TIM1_SetCompare1(duty_cycle);
- 564  0171 1e03          	ldw	x,(OFST-1,sp)
- 565  0173 cd0000        	call	_TIM1_SetCompare1
- 567                     ; 168         delay_us(6000000); // Add a delay for stability
- 569  0176 ae8d80        	ldw	x,#36224
- 570  0179 cd0000        	call	_delay_us
- 573  017c cc00e0        	jra	L331
- 608                     ; 173 void assert_failed(uint8_t* file, uint32_t line)
- 608                     ; 174 { 
- 609                     	switch	.text
- 610  017f               _assert_failed:
- 614  017f               L502:
- 615  017f 20fe          	jra	L502
- 628                     	xdef	_main
- 629                     	xdef	_measure_distance
- 630                     	xdef	_init_TIM1_PWM
- 631                     	xdef	_init_GPIO
- 632                     	xdef	_delay_us
- 633                     	xdef	_assert_failed
- 634                     	xref	_TIM1_SetCompare1
- 635                     	xref	_TIM1_CtrlPWMOutputs
- 636                     	xref	_TIM1_Cmd
- 637                     	xref	_TIM1_OC1Init
- 638                     	xref	_TIM1_TimeBaseInit
- 639                     	xref	_TIM1_DeInit
- 640                     	xref	_GPIO_ReadInputPin
- 641                     	xref	_GPIO_WriteLow
- 642                     	xref	_GPIO_WriteHigh
- 643                     	xref	_GPIO_Init
- 644                     	xref	_CLK_HSIPrescalerConfig
- 645                     .const:	section	.text
- 646  0000               L111:
- 647  0000 3d0c7e28      	dc.w	15628,32296
- 648                     	xref.b	c_lreg
- 649                     	xref.b	c_x
- 669                     	xref	c_ftoi
- 670                     	xref	c_fmul
- 671                     	xref	c_ultof
- 672                     	xref	c_ltor
- 673                     	xref	c_lgadc
- 674                     	end
+ 408                     ; 75     CLK_HSIPrescalerConfig(CLK_PRESCALER_HSIDIV1); // Set the clock frequency
+ 410  00d0 4f            	clr	a
+ 411  00d1 cd0000        	call	_CLK_HSIPrescalerConfig
+ 413                     ; 76     init_GPIO();
+ 415  00d4 cd000b        	call	_init_GPIO
+ 417                     ; 77     init_TIM1_PWM();
+ 419  00d7 cd002d        	call	_init_TIM1_PWM
+ 421  00da               L331:
+ 422                     ; 80         distance = measure_distance();
+ 424  00da ad84          	call	_measure_distance
+ 426  00dc 1f01          	ldw	(OFST-1,sp),x
+ 428                     ; 83         if (distance <= 1) {
+ 430  00de a30002        	cpw	x,#2
+ 431                     ; 84             duty_cycle = 1000; // LED OFF
+ 434  00e1 251a          	jrult	L141
+ 435                     ; 85 				} else if(distance>2 && distance<12) {
+ 437  00e3 a30003        	cpw	x,#3
+ 438  00e6 2515          	jrult	L141
+ 440  00e8 a3000c        	cpw	x,#12
+ 441  00eb 2410          	jruge	L141
+ 442                     ; 86 						duty_cycle = ((12 - distance) * 100); //Linear mapping to PWM
+ 444  00ed ae000c        	ldw	x,#12
+ 445  00f0 72f001        	subw	x,(OFST-1,sp)
+ 446  00f3 a664          	ld	a,#100
+ 447  00f5 cd0000        	call	c_bmulx
+ 449  00f8 1f01          	ldw	(OFST-1,sp),x
+ 451                     ; 88 						TIM1_SetCompare1(duty_cycle);
+ 453  00fa cd0000        	call	_TIM1_SetCompare1
+ 455  00fd               L141:
+ 456                     ; 92         delay_us(1000000); // Add a delay for stability
+ 458  00fd ae4240        	ldw	x,#16960
+ 459  0100 cd0000        	call	_delay_us
+ 462  0103 20d5          	jra	L331
+ 497                     ; 178 void assert_failed(uint8_t* file, uint32_t line)
+ 497                     ; 179 { 
+ 498                     	switch	.text
+ 499  0105               _assert_failed:
+ 503  0105               L361:
+ 504  0105 20fe          	jra	L361
+ 517                     	xdef	_main
+ 518                     	xdef	_measure_distance
+ 519                     	xdef	_init_TIM1_PWM
+ 520                     	xdef	_init_GPIO
+ 521                     	xdef	_delay_us
+ 522                     	xdef	_assert_failed
+ 523                     	xref	_TIM1_SetCompare1
+ 524                     	xref	_TIM1_CtrlPWMOutputs
+ 525                     	xref	_TIM1_Cmd
+ 526                     	xref	_TIM1_OC1Init
+ 527                     	xref	_TIM1_TimeBaseInit
+ 528                     	xref	_TIM1_DeInit
+ 529                     	xref	_GPIO_ReadInputPin
+ 530                     	xref	_GPIO_WriteLow
+ 531                     	xref	_GPIO_WriteHigh
+ 532                     	xref	_GPIO_Init
+ 533                     	xref	_CLK_HSIPrescalerConfig
+ 534                     .const:	section	.text
+ 535  0000               L111:
+ 536  0000 3d0c7e28      	dc.w	15628,32296
+ 537                     	xref.b	c_lreg
+ 538                     	xref.b	c_x
+ 558                     	xref	c_bmulx
+ 559                     	xref	c_ftoi
+ 560                     	xref	c_fmul
+ 561                     	xref	c_ultof
+ 562                     	xref	c_ltor
+ 563                     	xref	c_lgadc
+ 564                     	end
